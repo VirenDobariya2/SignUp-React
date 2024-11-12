@@ -8,8 +8,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb://localhost:27017/user")
-  
+// mongoose.connect("mongodb://0.0.0.0:27017/user")
+const run = async () => {
+  await mongoose.connect("mongodb://127.0.0.1:27017/user");
+  console.log("Connected to myDB");
+}
+
 // Signin data...................................................................................
 
 app.post("/signup", async (req, res) => {
@@ -63,6 +67,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(3000, async() => {
+  await run()
   console.log("Server is running on port 3000");
 });
